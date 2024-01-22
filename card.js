@@ -4,12 +4,16 @@ let cardB = document.getElementById("cardB");
 let cardA_edit = document.getElementById("cardA_edit");
 let cardB_edit = document.getElementById("cardB_edit");
 //QRCODE信用卡申請
+//條款
 let qrApply0 = document.getElementById("qrApply0");
+//非網銀登入
+let qrVerifyOther = document.getElementById("qrVerifyOther");
+//他行帳戶驗證
 let qrVerifyCard = document.getElementById("qrVerifyCard");
 let qrApply1 = document.getElementById("qrApply1");
 let qrApply2 = document.getElementById("qrApply2");
 
-
+//網銀登入
 let qrVerifyOTP = document.getElementById("qrVerifyOTP");
 let qrApply3 = document.getElementById("qrApply3");
 
@@ -30,7 +34,15 @@ cardB.addEventListener("click", async () => {
     function: setCardSelf,
   });
 });
-// QRCODE他行卡驗證
+// QRCODE-非網銀驗證
+qrVerifyOther.addEventListener("click", async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: setQrVerifyOther,
+  });
+});
+// QRCODE他行帳戶驗證
 qrVerifyCard.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.scripting.executeScript({
@@ -38,7 +50,7 @@ qrVerifyCard.addEventListener("click", async () => {
     function: setQrVerifyCard,
   });
 });
-// QRCODE-OTP驗證
+// QRCODE-網銀OTP驗證
 qrVerifyOTP.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.scripting.executeScript({
@@ -76,24 +88,34 @@ function setCardSelf() {
 //<---------------------------------------------MYDATA信用卡驗證 END----------------------------------------->
 
 //<---------------------------------------------QRCODE信用卡申請 START----------------------------------------->
-// QRCODE他行卡驗證
+// QRCODE 非網銀驗證
+function setQrVerifyOther(){
+  document.getElementsByTagName('input')[0].value='F124491189';
+  document.getElementsByTagName('input')[0].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByTagName('input')[1].value='1978/01/01';
+  document.getElementsByTagName('input')[1].dispatchEvent(new Event('input'));
+  document.getElementsByTagName('input')[1].dispatchEvent(new Event('change'));
+
+}
+// QRCODE他行帳戶驗證
 function setQrVerifyCard() {
 
-  document.getElementsByTagName('input')[2].value='5261';
-  document.getElementsByTagName('input')[3].value='2206';
-  document.getElementsByTagName('input')[4].value='4455';
-  document.getElementsByTagName('input')[5].value='9103';
-  document.getElementsByTagName('input')[6].value='0726';
-  document.getElementsByTagName('input')[7].value='013';
-  document.getElementsByTagName('input')[8].value='';
+  document.getElementsByTagName('select')[1].value='5: Object';
+  document.getElementsByTagName('select')[1].dispatchEvent(new Event('change'));
+  document.getElementsByTagName('select')[2].value='1: Object';
+  document.getElementsByTagName('select')[2].dispatchEvent(new Event('change'));
+  document.getElementsByTagName('input')[2].value='0050505151010300';
+  document.getElementsByTagName('input')[3].value='0911947133';
   //angular input 要加上以下去觸發! 不然ngModel吃不到
   document.getElementsByTagName('input')[2].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
   document.getElementsByTagName('input')[3].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
   document.getElementsByTagName('input')[4].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('input')[5].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('input')[6].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('input')[7].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('input')[8].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByTagName('input')[5].value='on';
+  document.getElementsByTagName('input')[5].dispatchEvent(new Event('click', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByClassName('js_terms_scrollArea')[0].scrollTop=document.getElementsByClassName('js_terms_scrollArea')[0].scrollHeight;
+  setTimeout(function(){
+    document.getElementsByClassName('btn2 main')[1].click();
+    },100)
 }
 // QRCODE OTP驗證
 function setQrVerifyOTP(){

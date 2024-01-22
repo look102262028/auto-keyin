@@ -51,8 +51,9 @@ caB.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     chrome.scripting.executeScript({
       // args: ['B121194483'], 
-      // args: ['N123401230'], 
-      args: ['X178734889'], 
+      // args: ['B121194483'], 
+      args: ['N123401230'], 
+      // args: ['X178734889'], 
       target: { tabId: tab.id },
       function: setCAF,
     });
@@ -61,8 +62,8 @@ caB2.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     chrome.scripting.executeScript({
       // args: ['B121194483'], 
-      // args: ['N123401230'], 
-      args: ['X178734889'], 
+      args: ['N123401230'], 
+      // args: ['X178734889'], 
       target: { tabId: tab.id },
       function: setCAF2,
     });
@@ -78,8 +79,9 @@ caB2.addEventListener("click", async () => {
  */
  function setCAF(custId) {
    if(!document.getElementsByName('newkey1')[0]){
-    // window.location.href='http://10.0.59.5/raapi/FSRA/CreateUser.htm';
-    window.location.href='http://10.0.5.60/raapi/FSRA/CreateUser.htm';
+    //10.0.5.60 10.0.59.5 10.0.59.6
+    let certIP = '10.0.59.6';
+    window.location.href='http://'+certIP+'/raapi/FSRA/CreateUser.htm';
    }else{
     let localobj=JSON.parse(localStorage.getItem(custId)?localStorage.getItem(custId):"{}");  //localstorage
     console.log('localobj', localobj);
@@ -128,8 +130,9 @@ caB2.addEventListener("click", async () => {
 //憑證第二步
 function setCAF2(custId) {
   if(!document.getElementsByName('userkey1')[0]){
-    // window.location.href='http://10.0.59.5/raapi/FSRA/ApplyCertOnDesk.htm';
-    window.location.href='http://10.0.5.60/raapi/FSRA/ApplyCertOnDesk.htm';
+    //10.0.5.60 10.0.59.5 10.0.59.6
+    let certIP = '10.0.59.6';
+    window.location.href='http://'+certIP+'/raapi/FSRA/ApplyCertOnDesk.htm';
   }else{
 
     console.log('setCAF2',custId);
