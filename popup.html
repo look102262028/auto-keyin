@@ -5,43 +5,59 @@
     <link rel="stylesheet" href="button.css">
   </head>
   <body>
-    <button class="button_blue button30 fonts marleft5" id="keyInDefaultAccount">F帳號</button>
-    <button class="button_blue button30 fonts" id="keyInFxAccount">A帳號</button>
-    <button class="button_blue button30 fonts" id="keyInOtherAccount">B帳號</button>
-    <button style="height: 1px;"></button>
+    <button class="button_blue button30 marleft5" id="keyInDefaultAccount">F帳號</button>
+    <button class="button_blue button30" id="keyInFxAccount">A帳號</button>
+    <button class="button_blue button30" id="keyInOtherAccount">B帳號</button>
+    <button class="wi250" style="height: 1px;"></button>
+    
 
     <button class="button_green button18 button_yellow marleft5"  id="job_chg">變更</button>
-    <button class="button_green button18 " style="font-size: 9px;" id="job_mobile">行動</button>
-    <button class="button_green button18" style="font-size: 9px;"id="job_online">線上</button>
+    <button class="button_green button18 "  id="job_mobile">行動</button>
+    <button class="button_green button18" id="job_online">線上</button>
     <button class="button_blue button18" id="fortify">弱掃</button>
     <button class="button_red button18" id="sync">同步</button>
     <div style="height: 3px;"></div>
 
-    <button class="button_blue button30 marleft5" id="caF">憑證-F</button>
-    <button class="button_blue button30" id="caA">憑證-A</button>
-    <button class="button_blue button30" id="caB">憑證-B</button>
+    <button class="button_blue button22 marleft5" id="caF">憑證-F</button>
+    <button class="button_blue button22" id="caA">憑證-A</button>
+    <button class="button_blue button22" id="caB">憑證-B</button>
+    <button class="button_blue button22" id="caID">憑證-ID</button>
     <div style="height: 5px;"></div>
-    <button class="button_blue button30 marleft5" id="caF2">憑證-F</button>
-    <button class="button_blue button30" id="caA2">憑證-A</button>
-    <button class="button_blue button30" id="caB2">憑證-B</button>    
+    <button class="button_blue button22 marleft5" id="caF2">憑證-F</button>
+    <button class="button_blue button22" id="caA2">憑證-A</button>
+    <button class="button_blue button22" id="caB2">憑證-B</button>   
+    <button class="button_blue button22" id="caID2">憑證-ID</button> 
     <div style="height: 5px;"></div>
     <button class="button_yellow button30 " id="cardB" style="display: none;">my他行</button>
     <button class="button_red button30 marleft5" id="cardA">my驗證</button>
     <button class="button_green button30" id="cardA_edit">自行編輯</button>
     <button class="button_yellow button30"  id="cardB_edit">他行編輯</button>
     <div style="height: 2px;"></div>
-    <button class="button_red button22 marleft5 " id="qrVerifyOther" >QR</button>
-    <button class="button_red button22 " id="qrVerifyCard" >帳戶</button>
+    <button class="button_red button18 marleft5 " id="qrVerifySelf">本</button>
+    <button class="button_yellow button30" id="qrApply3" >本人編輯</button>
+    <button class="button_green button30" id="qrApply0">條款0</button>
+    <div style="height: 2px;"></div>
+    <button class="button_red button22 marleft5" id="qrVerifyOther" >他</button>
+    <button class="button_red button22" id="qrVerifyCard" >帳戶</button>
     <button class="button_yellow button22" id="qrApply1">編輯1</button>
     <button class="button_blue button22" id="qrApply2">編輯2</button>
-    <div style="height: 2px;"></div>
-    <button class="button_red button30 marleft5" id="qrVerifyOTP" >QR-OTP</button>
-    <button class="button_green button30" id="qrApply0">條款0</button>
-    <button class="button_blue button30" id="qrApply3" >QR-編輯</button>
     <div style="height: 5px;"></div>
+    
+    ID:<input type="text" id="id" class="marleft2" style="height: 10px; width: 80px;"></input>
+    DAY:<input type="text" id="day" class="marleft2" style="height: 10px; width: 30px;"></input>
+    <button class="button_blue button15" id="sql"  style="height: 18px;" >sql</button>
+    <button class="button_blue button15" id="url" style="height: 18px;" >url</button>
+    <div style="height: 1px;"></div>
+    <input  class="marleft5" type="text" id="traceId" style="height: 10px; width: 45%"></input>
+    <button class="button_blue button10" id="log1"  style="height: 18px;" >s</button>
+    <button class="button_blue button10" id="log2"  style="height: 18px;" >r</button>
+    <button class="button_green button10" id="log3"  style="height: 18px;" >s</button>
+    <button class="button_green button10" id="log4"  style="height: 18px;" >r</button>
+
     <script src="popup.js"></script>
     <script src="card.js"></script>
     <script src="cert.js"></script>
     <script src="iswp.js"></script>
+    <script src="log.js"></script>
   </body>
 </html>

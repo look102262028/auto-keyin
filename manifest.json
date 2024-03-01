@@ -13,7 +13,8 @@
         "tabs",
         "clipboardRead",
         "clipboardWrite",
-        "contextMenus"
+        "contextMenus",
+        "storage"
     ],
     "action": {
         "default_popup": "popup.html",

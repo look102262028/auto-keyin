@@ -7,16 +7,21 @@ let caA2 = document.getElementById("caA2");
 // // 憑證-B121194483
 let caB = document.getElementById("caB");
 let caB2 = document.getElementById("caB2");
+// // 憑證-自行輸入
+let caID = document.getElementById("caID");
+let caID2 = document.getElementById("caID2");
+let caIdInput = document.getElementById("id");
 
 
-
+//10.0.5.60 10.0.59.5 10.0.59.6
+let URL = '10.0.5.60';
 
 //<---------------------------------------------憑證----------------------------------------->
 
 caF.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     chrome.scripting.executeScript({
-      args: ['F121374529'],
+      args: ['F121374529',URL],
       target: { tabId: tab.id },
       function: setCAF,
     });
@@ -24,7 +29,7 @@ caF.addEventListener("click", async () => {
 caF2.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     chrome.scripting.executeScript({
-      args: ['F121374529'],
+      args: ['F121374529',URL],
       target: { tabId: tab.id },
       function: setCAF2,
     });
@@ -33,7 +38,7 @@ caF2.addEventListener("click", async () => {
 caA.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     chrome.scripting.executeScript({
-      args: ['A237772047'],
+      args: ['A237772047',URL],
       target: { tabId: tab.id },
       function: setCAF,
     });
@@ -41,7 +46,7 @@ caA.addEventListener("click", async () => {
 caA2.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     chrome.scripting.executeScript({
-      args: ['A237772047'],
+      args: ['A237772047',URL],
       target: { tabId: tab.id },
       function: setCAF2,
     });
@@ -50,9 +55,9 @@ caA2.addEventListener("click", async () => {
 caB.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     chrome.scripting.executeScript({
+      args: ['B121194483',URL], 
       // args: ['B121194483'], 
-      // args: ['B121194483'], 
-      args: ['N123401230'], 
+      // args: ['N123401230'], 
       // args: ['X178734889'], 
       target: { tabId: tab.id },
       function: setCAF,
@@ -61,14 +66,37 @@ caB.addEventListener("click", async () => {
 caB2.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     chrome.scripting.executeScript({
-      // args: ['B121194483'], 
-      args: ['N123401230'], 
+      args: ['B121194483',URL], 
+      // args: ['N123401230'], 
       // args: ['X178734889'], 
       target: { tabId: tab.id },
       function: setCAF2,
     });
 });
-
+caID.addEventListener("click", async () => {
+	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    chrome.storage.sync.set({'id':id.value},function(){
+      console.log('set id.value',id.value)
+    });
+    chrome.scripting.executeScript({
+      args: [id.value,URL], 
+      target: { tabId: tab.id },
+      function: setCAF,
+    });
+});
+caID2.addEventListener("click", async () => {
+	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    chrome.scripting.executeScript({
+      args: [id.value,URL], 
+      target: { tabId: tab.id },
+      function: setCAF2,
+    });
+});
+// chrome.storage.sync.get(['id'],function(result){
+//   let custIdText = result.id;
+//   console.log(custIdText);
+//   id.value=custIdText;
+// });
 
 
 //<---------------------------------------------憑證END----------------------------------------->
@@ -77,10 +105,9 @@ caB2.addEventListener("click", async () => {
 /**
  *  憑證第一步
  */
- function setCAF(custId) {
+ function setCAF(custId,URL) {
    if(!document.getElementsByName('newkey1')[0]){
-    //10.0.5.60 10.0.59.5 10.0.59.6
-    let certIP = '10.0.59.6';
+    let certIP = URL;
     window.location.href='http://'+certIP+'/raapi/FSRA/CreateUser.htm';
    }else{
     let localobj=JSON.parse(localStorage.getItem(custId)?localStorage.getItem(custId):"{}");  //localstorage
@@ -128,10 +155,9 @@ caB2.addEventListener("click", async () => {
   
 }
 //憑證第二步
-function setCAF2(custId) {
+function setCAF2(custId,URL) {
   if(!document.getElementsByName('userkey1')[0]){
-    //10.0.5.60 10.0.59.5 10.0.59.6
-    let certIP = '10.0.59.6';
+    let certIP = URL;
     window.location.href='http://'+certIP+'/raapi/FSRA/ApplyCertOnDesk.htm';
   }else{
 

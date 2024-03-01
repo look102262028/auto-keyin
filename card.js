@@ -6,6 +6,7 @@ let cardB_edit = document.getElementById("cardB_edit");
 //QRCODE信用卡申請
 //條款
 let qrApply0 = document.getElementById("qrApply0");
+
 //非網銀登入
 let qrVerifyOther = document.getElementById("qrVerifyOther");
 //他行帳戶驗證
@@ -14,7 +15,7 @@ let qrApply1 = document.getElementById("qrApply1");
 let qrApply2 = document.getElementById("qrApply2");
 
 //網銀登入
-let qrVerifyOTP = document.getElementById("qrVerifyOTP");
+let qrVerifySelf = document.getElementById("qrVerifySelf");
 let qrApply3 = document.getElementById("qrApply3");
 
 //<---------------------------------------------MYDATA信用卡驗證 START----------------------------------------->
@@ -34,6 +35,15 @@ cardB.addEventListener("click", async () => {
     function: setCardSelf,
   });
 });
+
+// QRCODE-網銀驗證
+qrVerifySelf.addEventListener("click", async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: setQrVerifySelf,
+  });
+});
 // QRCODE-非網銀驗證
 qrVerifyOther.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -48,14 +58,6 @@ qrVerifyCard.addEventListener("click", async () => {
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     function: setQrVerifyCard,
-  });
-});
-// QRCODE-網銀OTP驗證
-qrVerifyOTP.addEventListener("click", async () => {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: setQrVerifyOTP,
   });
 });
 
@@ -88,16 +90,26 @@ function setCardSelf() {
 //<---------------------------------------------MYDATA信用卡驗證 END----------------------------------------->
 
 //<---------------------------------------------QRCODE信用卡申請 START----------------------------------------->
-// QRCODE 非網銀驗證
+// 網銀驗證
+function setQrVerifySelf(){
+  document.getElementsByTagName('input')[0].value='N123401230';
+  document.getElementsByTagName('input')[0].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByTagName('input')[1].value='1997/11/16';
+  document.getElementsByTagName('input')[1].dispatchEvent(new Event('input'));
+  document.getElementsByTagName('input')[1].dispatchEvent(new Event('change'));
+  document.getElementsByClassName('btn2 main')[0].click();
+
+}
+// 非網銀驗證
 function setQrVerifyOther(){
   document.getElementsByTagName('input')[0].value='F124491189';
   document.getElementsByTagName('input')[0].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
   document.getElementsByTagName('input')[1].value='1978/01/01';
   document.getElementsByTagName('input')[1].dispatchEvent(new Event('input'));
   document.getElementsByTagName('input')[1].dispatchEvent(new Event('change'));
-
+  document.getElementsByClassName('btn2 main')[0].click();
 }
-// QRCODE他行帳戶驗證
+// 他行帳戶驗證
 function setQrVerifyCard() {
 
   document.getElementsByTagName('select')[1].value='5: Object';
@@ -116,16 +128,6 @@ function setQrVerifyCard() {
   setTimeout(function(){
     document.getElementsByClassName('btn2 main')[1].click();
     },100)
-}
-// QRCODE OTP驗證
-function setQrVerifyOTP(){
-
-  document.getElementsByTagName('input')[0].value='N123401230';
-  document.getElementsByTagName('input')[0].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('input')[1].value='1997/11/16';
-  document.getElementsByTagName('input')[1].dispatchEvent(new Event('input'));
-  document.getElementsByTagName('input')[1].dispatchEvent(new Event('change'));
-
 }
 //<---------------------------------------------QRCODE信用卡申請 END----------------------------------------->
 
@@ -319,6 +321,9 @@ function setQrApply0(){
         setTimeout(function(){
           document.getElementsByClassName('btn2 main')[1].click();
           document.getElementsByClassName('btn2 main')[0].click()
+          setTimeout(function(){
+            document.getElementsByClassName('btn2 brown')[0].click();
+          },200);
         },100);
       },100);
     },100);
@@ -358,8 +363,15 @@ function setQrApply1(){
   document.getElementsByTagName('input')[15].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
   document.getElementsByTagName('input')[16].value='on';
   document.getElementsByTagName('input')[16].dispatchEvent(new Event('click', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByClassName('btn2 brown')[0].click();
 }
 function setQrApply2(){
+  document.getElementsByTagName('select')[1].value='3: Object';
+  document.getElementsByTagName('select')[1].dispatchEvent(new Event('change'));
+  document.getElementsByTagName('select')[2].value='1: Object';
+  document.getElementsByTagName('select')[2].dispatchEvent(new Event('change'));
+  document.getElementsByTagName('select')[3].value='1: Object';
+  document.getElementsByTagName('select')[3].dispatchEvent(new Event('change'));
   document.getElementsByTagName('input')[0].value='測試公司';
   document.getElementsByTagName('input')[0].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
   document.getElementsByTagName('input')[1].value='12345678';
@@ -370,20 +382,16 @@ function setQrApply2(){
   document.getElementsByTagName('input')[3].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
   document.getElementsByTagName('input')[4].value='236';
   document.getElementsByTagName('input')[4].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('select')[1].value='2: 西門分行';
-  document.getElementsByTagName('select')[1].dispatchEvent(new Event('change')); 
-  document.getElementsByTagName('select')[2].value='2: 西門分行';
-  document.getElementsByTagName('select')[2].dispatchEvent(new Event('change'));
   document.getElementsByTagName('input')[5].value='大安路55號';
   document.getElementsByTagName('input')[5].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('select')[3].value='1: Object';
-  document.getElementsByTagName('select')[3].dispatchEvent(new Event('change'));
   document.getElementsByTagName('input')[6].value='總柴';
   document.getElementsByTagName('input')[6].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
   document.getElementsByTagName('input')[7].value='7';
   document.getElementsByTagName('input')[7].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('input')[8].value='30';
-  document.getElementsByTagName('input')[8].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByTagName('input')[9].value='30';
+  document.getElementsByTagName('input')[9].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByTagName('input')[10].value='on';
+  document.getElementsByTagName('input')[10].dispatchEvent(new Event('click', { 'bubbles': true, 'cancelable': false }));
 }
 function setQrApply3(){
   document.getElementsByTagName('input')[0].value='測試姓名';
@@ -392,18 +400,19 @@ function setQrApply3(){
   document.getElementsByTagName('input')[3].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
   document.getElementsByTagName('input')[4].value='0911123456';
   document.getElementsByTagName('input')[4].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('select')[1].value='2: 台北市';
-  document.getElementsByTagName('select')[1].dispatchEvent(new Event('change'));
-  document.getElementsByTagName('select')[2].value='2: 西門分行';
-  document.getElementsByTagName('select')[2].dispatchEvent(new Event('change'));
-  document.getElementsByTagName('select')[3].value='3: Object';
-  document.getElementsByTagName('select')[3].dispatchEvent(new Event('change'));
-  document.getElementsByTagName('input')[9].value='testmail';
-  document.getElementsByTagName('input')[9].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('input')[10].value='gmail.com';
-  document.getElementsByTagName('input')[10].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
-  document.getElementsByTagName('input')[11].value='on';
-  document.getElementsByTagName('input')[11].dispatchEvent(new Event('click', { 'bubbles': true, 'cancelable': false }));
+  // document.getElementsByTagName('select')[1].value='2: 台北市';
+  // document.getElementsByTagName('select')[1].dispatchEvent(new Event('change'));
+  // document.getElementsByTagName('select')[2].value='2: 西門分行';
+  // document.getElementsByTagName('select')[2].dispatchEvent(new Event('change'));
+  // document.getElementsByTagName('select')[3].value='3: Object';
+  // document.getElementsByTagName('select')[3].dispatchEvent(new Event('change'));
+  document.getElementsByTagName('input')[12].value='testmail';
+  document.getElementsByTagName('input')[12].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByTagName('input')[13].value='gmail.com';
+  document.getElementsByTagName('input')[13].dispatchEvent(new Event('input', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByTagName('input')[14].value='on';
+  document.getElementsByTagName('input')[14].dispatchEvent(new Event('click', { 'bubbles': true, 'cancelable': false }));
+  document.getElementsByClassName('btn2 brown')[0].click();
 }
 //<---------------------------------------------QRCODE信用卡編輯END----------------------------------------->
 
